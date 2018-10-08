@@ -1,5 +1,4 @@
 const dummy = (blogs) => {
-  //cosole.log(blogs)
   return 1
 }
 
