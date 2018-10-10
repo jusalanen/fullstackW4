@@ -1,4 +1,5 @@
 const totalLikes = require('../utils/list_helper').totalLikes
+const favoriteBlog = require('../utils/list_helper').favoriteBlog
 
 const blogs = [
   {
@@ -40,7 +41,7 @@ const blogs = [
     url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
     likes: 2,
     __v: 0
-  }  
+  }
 ]
 
 describe('total likes', () => {
@@ -50,11 +51,20 @@ describe('total likes', () => {
   })
 
   test('is calculated right', () => {
-    const arr = [{likes: 1}, {likes: 2}, {likes: 3}]
+    const arr = [{ likes: 1 } , { likes: 2 }, { likes: 3 }]
     expect(totalLikes(arr)).toBe(6)
   })
 
   test('of a bigger list is calculated right', () => {
     expect(totalLikes(blogs)).toBe(36)
   })
-})  
+})
+
+test('favorite blog is returned right', () => {
+  expect(favoriteBlog(blogs)).toEqual({
+    title: 'Canonical string reduction',
+    author: 'Edsger W. Dijkstra',
+    likes: 12
+  })
+  console.log(favoriteBlog(blogs))
+})
