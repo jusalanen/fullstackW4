@@ -1,5 +1,6 @@
 const totalLikes = require('../utils/list_helper').totalLikes
 const favoriteBlog = require('../utils/list_helper').favoriteBlog
+const mostBlogs = require('../utils/list_helper').mostBlogs
 
 const blogs = [
   {
@@ -35,6 +36,14 @@ const blogs = [
     __v: 0
   },
   {
+    _id: '5a422ba71b54a676234d17fb',
+    title: 'TDD harms architecture',
+    author: 'Robert C. Martin',
+    url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
+    likes: 0,
+    __v: 0
+  },
+  {
     _id: '5a422bc61b54a676234d17fc',
     title: 'Type wars',
     author: 'Robert C. Martin',
@@ -67,4 +76,13 @@ test('favorite blog is returned right', () => {
     likes: 12
   })
   console.log(favoriteBlog(blogs))
+})
+
+test('author with most blogs is returned right', () => {
+  const topBlogger = mostBlogs(blogs)
+  expect(topBlogger).toEqual({
+    author: 'Robert C. Martin',
+    blogs: 3
+  })
+  console.log(topBlogger)
 })
