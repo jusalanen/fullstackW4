@@ -52,12 +52,7 @@ const mostBlogs = (blogs) => {
       maxBlogs.blogs = auth.blogs
     }
   })
-  return(
-    {
-      author: maxBlogs.author,
-      blogs: maxBlogs.blogs
-    }
-  )
+  return maxBlogs
 }
 
 module.exports = {
