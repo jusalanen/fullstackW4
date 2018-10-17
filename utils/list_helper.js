@@ -1,4 +1,5 @@
 const dummy = (blogs) => {
+  console.log(blogs)
   return 1
 }
 
@@ -39,7 +40,7 @@ const mostBlogs = (blogs) => {
     }
   })
   authArr.forEach(auth => {
-    blogsArr.forEach( blog => {
+    blogsArr.forEach(blog => {
       if (auth.author === blog.author) {
         auth.blogs += 1
       }
@@ -55,9 +56,35 @@ const mostBlogs = (blogs) => {
   return maxBlogs
 }
 
+const mostLikes = (blogs) => {
+  const authArr = []
+  const blogsArr = [].concat(blogs)
+  blogsArr.forEach(blog => {
+    if( !authArr.includes(blog.author) ) {
+      authArr.push({ author: blog.author, likes: 0 })
+    }
+  })
+  authArr.forEach(auth => {
+    blogsArr.forEach(blog => {
+      if (auth.author === blog.author) {
+        auth.likes += blog.likes
+      }
+    })
+  })
+  const maxLikes = { author: '', likes: 0 }
+  authArr.forEach(auth => {
+    if (auth.likes >= maxLikes.likes) {
+      maxLikes.author = auth.author
+      maxLikes.likes = auth.likes
+    }
+  })
+  return maxLikes
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }

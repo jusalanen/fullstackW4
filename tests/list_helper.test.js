@@ -1,6 +1,7 @@
 const totalLikes = require('../utils/list_helper').totalLikes
 const favoriteBlog = require('../utils/list_helper').favoriteBlog
 const mostBlogs = require('../utils/list_helper').mostBlogs
+const mostLikes = require('../utils/list_helper').mostLikes
 
 const blogs = [
   {
@@ -85,4 +86,13 @@ test('author with most blogs is returned right', () => {
     blogs: 3
   })
   console.log(topBlogger)
+})
+
+test('author with most likes is returned right', () => {
+  const mostLiked = mostLikes(blogs)
+  expect(mostLiked).toEqual({
+    author: 'Edsger W. Dijkstra',
+    likes: 17
+  })
+  console.log(mostLiked)
 })
