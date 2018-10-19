@@ -54,48 +54,51 @@ const blogs = [
   }
 ]
 
-describe('total likes', () => {
+describe('list helper functions', () => {
 
-  test('of an empty list is zero', () => {
+  describe('total likes', () => {
+
+    test('of an empty list is zero', () => {
     expect(totalLikes([])).toBe(0)
-  })
-
-  test('is calculated right', () => {
-    const arr = [{ likes: 1 } , { likes: 2 }, { likes: 3 }]
-    expect(totalLikes(arr)).toBe(6)
-  })
-
-  test('of a bigger list is calculated right', () => {
-    expect(totalLikes(blogs)).toBe(36)
-  })
-})
-
-describe('function', () => {
-
-  test('favoriteBlog returnes right blog', () => {
-    expect(favoriteBlog(blogs)).toEqual({
-      title: 'Canonical string reduction',
-      author: 'Edsger W. Dijkstra',
-      likes: 12
     })
-    console.log(favoriteBlog(blogs))
+
+    test('is calculated right', () => {
+      const arr = [{ likes: 1 } , { likes: 2 }, { likes: 3 }]
+      expect(totalLikes(arr)).toBe(6)
+    })
+
+    test('of a bigger list is calculated right', () => {
+    e xpect(totalLikes(blogs)).toBe(36)
+    })
   })
 
-  test('mostBlogs returnes right author and blogs', () => {
-    const topBlogger = mostBlogs(blogs)
-    expect(topBlogger).toEqual({
-      author: 'Robert C. Martin',
-      blogs: 3
-    })
-    console.log(topBlogger)
-  })
+  describe('functio', () => {
 
-  test('mostLikes returnes right author and likes', () => {
-    const mostLiked = mostLikes(blogs)
-    expect(mostLiked).toEqual({
-      author: 'Edsger W. Dijkstra',
-      likes: 17
+    test('favoriteBlog returnes right blog', () => {
+      expect(favoriteBlog(blogs)).toEqual({
+        title: 'Canonical string reduction',
+        author: 'Edsger W. Dijkstra',
+        likes: 12
+      })
+      console.log(favoriteBlog(blogs))
     })
-    console.log(mostLiked)
+
+    test('mostBlogs returnes right author and blogs', () => {
+      const topBlogger = mostBlogs(blogs)
+      expect(topBlogger).toEqual({
+        author: 'Robert C. Martin',
+        blogs: 3
+      })
+      console.log(topBlogger)
+    })
+
+    test('mostLikes returnes right author and likes', () => {
+      const mostLiked = mostLikes(blogs)
+      expect(mostLiked).toEqual({
+        author: 'Edsger W. Dijkstra',
+        likes: 17
+      })
+      console.log(mostLiked)
+    })
   })
 })
