@@ -90,7 +90,7 @@ describe('function', () => {
     console.log(topBlogger)
   })
 
-  test('mostLikes returnes right author with blogs', () => {
+  test('mostLikes returnes right author and likes', () => {
     const mostLiked = mostLikes(blogs)
     expect(mostLiked).toEqual({
       author: 'Edsger W. Dijkstra',
