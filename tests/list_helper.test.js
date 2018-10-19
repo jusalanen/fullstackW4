@@ -68,7 +68,7 @@ describe('list helper functions', () => {
     })
 
     test('of a bigger list is calculated right', () => {
-    e xpect(totalLikes(blogs)).toBe(36)
+      expect(totalLikes(blogs)).toBe(36)
     })
   })
 
