@@ -54,12 +54,12 @@ const blogs = [
   }
 ]
 
-describe('list helper functions', () => {
+describe.skip('list helper functions', () => {
 
   describe('total likes', () => {
 
     test('of an empty list is zero', () => {
-    expect(totalLikes([])).toBe(0)
+      expect(totalLikes([])).toBe(0)
     })
 
     test('is calculated right', () => {
