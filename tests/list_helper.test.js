@@ -70,29 +70,32 @@ describe('total likes', () => {
   })
 })
 
-test('favorite blog is returned right', () => {
-  expect(favoriteBlog(blogs)).toEqual({
-    title: 'Canonical string reduction',
-    author: 'Edsger W. Dijkstra',
-    likes: 12
-  })
-  console.log(favoriteBlog(blogs))
-})
+describe('function', () => {
 
-test('author with most blogs is returned right', () => {
-  const topBlogger = mostBlogs(blogs)
-  expect(topBlogger).toEqual({
-    author: 'Robert C. Martin',
-    blogs: 3
+  test('favoriteBlog returnes right blog', () => {
+    expect(favoriteBlog(blogs)).toEqual({
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+      likes: 12
+    })
+    console.log(favoriteBlog(blogs))
   })
-  console.log(topBlogger)
-})
 
-test('author with most likes is returned right', () => {
-  const mostLiked = mostLikes(blogs)
-  expect(mostLiked).toEqual({
-    author: 'Edsger W. Dijkstra',
-    likes: 17
+  test('mostBlogs returnes right author and blogs', () => {
+    const topBlogger = mostBlogs(blogs)
+    expect(topBlogger).toEqual({
+      author: 'Robert C. Martin',
+      blogs: 3
+    })
+    console.log(topBlogger)
   })
-  console.log(mostLiked)
+
+  test('mostLikes returnes right author with blogs', () => {
+    const mostLiked = mostLikes(blogs)
+    expect(mostLiked).toEqual({
+      author: 'Edsger W. Dijkstra',
+      likes: 17
+    })
+    console.log(mostLiked)
+  })
 })
