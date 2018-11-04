@@ -1,33 +1,37 @@
 const supertest = require('supertest')
-const { app, server, mongoose } = require('../index')
+const { app, server } = require('../index')
 const api = supertest(app)
+const Blog = require('../models/blog')
 
 test('get returns json of correct size', async () => {
   const resp = await api.get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
-  expect(resp.body.length).toBe(4)
+  expect(resp.body.length).toBe(5)
 })
 
-test('post returns correct blog', async () => {
-  const newblog = {
+test('post saves correct blog', async () => {
+
+  const newBlog = {
     title: 'testing post',
     author: 'me',
     url: 'someurl/For/Testing',
     likes: 0
   }
-  await api.post('api/blogs').send(newblog)
+  const resp = await api.post('/api/blogs').send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
 
-  const resp = await api.get('/api/blogs')
+  const response = await api.get('/api/blogs')
+  expect(response.body.length).toBe(6)
 
-  const urls = resp.body.map(r => r.url)
+  const urls = response.body.map(r => r.url)
+
   expect(urls).toContain('someurl/For/Testing')
+  await Blog.findByIdAndDelete(resp.body._id)
 })
 
-afterAll( async () => {
-  await mongoose.disconnect()
-  await server.close()
+afterAll( () => {
+  server.close()
 })

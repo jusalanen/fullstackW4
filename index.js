@@ -1,3 +1,4 @@
+const https = require('https')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -25,9 +26,14 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true })
     console.log(error)
   })
 
+const server =https.createServer(app)
 const PORT = 3003
-const server = app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+})
+
+server.on('close', () => {
+  mongoose.connection.close()
 })
 
 module.exports = {
