@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const blogsRouter = require('./controllers/blogs')
 
+
 if ( process.env.NODE_ENV !== 'production' ) {
   require('dotenv').config()
 }
@@ -17,14 +18,20 @@ app.use(morgan('tiny'))
 
 app.use('/api/blogs', blogsRouter)
 
+//const server =https.createServer(app)
+//const PORT = 3003
+
 const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl, { useNewUrlParser: true })
   .then( () => {
     console.log('Connected to database', mongoUrl)
   })
   .catch( error => {
-    console.log(error)
+    console.log('mongo error', error.message)
   })
+mongoose.Promise = global.Promise
+
+app.use('/api/blogs', blogsRouter)
 
 const server =https.createServer(app)
 const PORT = 3003
