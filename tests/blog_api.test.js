@@ -57,6 +57,38 @@ test('likes set to zero if not set in request', async () => {
   }
 })
 
+test('author must not be undefined', async () => {
+  const newBlog = {
+    title: 'testing delete',
+    url: 'someurl/For/Testing'
+  }
+  try {
+    await api.post('api/blogs').send(newBlog)
+      .expect(400)
+    const response = await api.get('api.blogs')
+
+    expect(response.body.length).toBe(5)
+  } catch (err) {
+    console.log(err.message)
+  }
+})
+
+test('url must not be undefined', async () => {
+  const newBlog = {
+    title: 'testing delete',
+    author: 'me'
+  }
+  try {
+    await api.post('api/blogs').send(newBlog)
+      .expect(400)
+    const response = await api.get('api.blogs')
+
+    expect(response.body.length).toBe(5)
+  } catch (err) {
+    console.log(err.message)
+  }
+})
+
 afterAll( () => {
   server.close()
 })
