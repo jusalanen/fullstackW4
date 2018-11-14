@@ -89,6 +89,29 @@ test('url must not be undefined', async () => {
   }
 })
 
+test('blog is deleted', async () => {
+  const newBlog =  {
+    title: 'testing delete',
+    author: 'me',
+    url: 'someurl/For/Testing'
+  }
+  try {
+    const savedBlog = await api.post('api/blogs').send(newBlog)
+    const response = await api.get('api/blogs')
+    const titles = response.body.map(r => r.title)
+    expect(titles).toContain('testing delete')
+
+    const delId = savedBlog._id
+    await api.delete('api/blogs/' + delId)
+      .expect(204)
+    const blogsAfterD = await api.get('api/blogs')
+    const titlesAfterD = blogsAfterD.map(b => b.title)
+    expect(titlesAfterD).not.toContain('testing delete')
+  } catch (err) {
+    console.log(err.message)
+  }
+})
+
 afterAll( () => {
   server.close()
 })
