@@ -1,4 +1,4 @@
-const https = require('https')
+const http = require('http')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -30,7 +30,7 @@ mongoose.Promise = global.Promise
 
 app.use('/api/blogs', blogsRouter)
 
-const server =https.createServer(app)
+const server =http.createServer(app)
 const PORT = 3003
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

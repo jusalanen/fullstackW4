@@ -9,7 +9,8 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response) => {
 
   const body = request.body
-  if(body.author === undefined || body.url === undefined) {
+  if(body.author === undefined || body.url === undefined ||
+  body.author === '' || body.url === '') {
     return response.status(400)
       .send({ error: 'author or url missing' })
   }
@@ -18,7 +19,7 @@ blogsRouter.post('/', async (request, response) => {
       title: body.title,
       author: body.author,
       url: body.url,
-      likes: body.likes === undefined ? 0 : body.likes
+      likes: body.likes === undefined || body.likes ==='' ? 0 : body.likes
     })
 
     const savedBlog = await blog.save()
@@ -31,12 +32,31 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
+
   try {
     await Blog.findByIdAndDelete(request.params.id)
     response.status(204).end()
   } catch (err) {
     console.log(err.message)
     response.status(404).send( { error: 'bad id' })
+  }
+})
+
+blogsRouter.put('/:id', async (req, resp) => {
+  const body = req.body
+  const blog = {
+    title: body.title,
+    author: body.author,
+    url: body.url,
+    likes: body.likes
+  }
+
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true } )
+    resp.json(updatedBlog)
+  }  catch (err) {
+    console.log(err.message)
+    resp.status(400).send({ error: 'bad id' })
   }
 })
 
