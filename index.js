@@ -6,6 +6,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
 
 
 if ( process.env.NODE_ENV !== 'production' ) {
@@ -17,6 +18,7 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
 
 const mongoUrl = process.env.MONGODB_URI
 mongoose.connect(mongoUrl, { useNewUrlParser: true })
@@ -27,8 +29,6 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true })
     console.log('mongo error', error.message)
   })
 mongoose.Promise = global.Promise
-
-app.use('/api/blogs', blogsRouter)
 
 const server =http.createServer(app)
 const PORT = 3003
