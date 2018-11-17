@@ -38,7 +38,6 @@ test('post saves correct blog', async () => {
 })
 
 test('likes set to zero if not set in request', async () => {
-  //jest.setTimeout(10000)
   const newBlog =  {
     title: 'testing post with no likes',
     author: 'me',

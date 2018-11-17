@@ -6,6 +6,18 @@ usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
 
+    if( body.password.length < 3) {
+      return response.status(400)
+        .send( { error: 'password must have at least 3 characters' })
+    }
+
+    const usersInDb = await User.find({})
+    const usernames = usersInDb.map( u => u.username )
+    if (usernames.includes(body.username)) {
+      return response.status(400)
+        .send({ error: 'username must be unique' })
+    }
+
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
