@@ -39,7 +39,7 @@ test('post saves correct blog', async () => {
 
 test('likes set to zero if not set in request', async () => {
   const newBlog =  {
-    title: 'testing post with no likes',
+    title: 'testing post without likes',
     author: 'me',
     url: 'someurl/For/Testing'
   }
@@ -58,7 +58,7 @@ test('likes set to zero if not set in request', async () => {
 
 test('author must not be undefined', async () => {
   const newBlog = {
-    title: 'testing delete',
+    title: 'testing without author',
     url: 'someurl/For/Testing'
   }
   try {
@@ -74,7 +74,7 @@ test('author must not be undefined', async () => {
 
 test('url must not be undefined', async () => {
   const newBlog = {
-    title: 'testing delete',
+    title: 'testing without url',
     author: 'me'
   }
   try {

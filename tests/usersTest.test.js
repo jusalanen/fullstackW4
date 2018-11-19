@@ -1,7 +1,6 @@
 const supertest = require('supertest')
 const { app, server } = require('../index')
 const api = supertest(app)
-const user = require('../models/user')
 
 test('too short password is not accepted', async () => {
   const user = {
@@ -23,7 +22,7 @@ test('duplicate username is not accepted', async () => {
   const user = {
     'username': 'firstuser',
     'name': 'Number Two',
-    'password': 'uno'
+    'password': 'dos'
   }
   try {
     await api.post('api/users').send(user).expect(400)

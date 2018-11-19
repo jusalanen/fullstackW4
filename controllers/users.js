@@ -30,7 +30,7 @@ usersRouter.post('/', async (request, response) => {
 
     const savedUser = await user.save()
 
-    response.status(201).send(savedUser)
+    response.status(201).send(User.format(savedUser))
   } catch (exception) {
     console.log(exception)
     response.status(500).json({ error: 'something went wrong...' })
@@ -39,12 +39,13 @@ usersRouter.post('/', async (request, response) => {
 
 usersRouter.get('/', async (request, response) => {
   try {
-    const usersInDb = await User.find({})
+    const users = await User
+      .find({}).populate('blogs', { _id: 1, likes: 1, author: 1, title: 1, url: 1 } )
 
-    response.json(usersInDb)
+    response.json(users.map(User.format))
   } catch (exeption) {
     console.log(exeption)
-    response.status(500).json( { error: 'something went wrong...' })
+    response.status(500).json({ error: 'something went wrong...' })
   }
 })
 

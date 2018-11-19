@@ -1,29 +1,37 @@
 const Blog = require('../models/blog')
 const blogsRouter = require('express').Router()
+const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({})
-  response.json(blogs)
+  response.json(blogs.map(Blog.format))
 })
 
 blogsRouter.post('/', async (request, response) => {
-
-  const body = request.body
-  if(body.author === undefined || body.url === undefined ||
-  body.author === '' || body.url === '') {
-    return response.status(400)
-      .send({ error: 'author or url missing' })
-  }
   try {
+    const body = request.body
+
+    if(body.author === undefined || body.url === undefined ||
+    body.author === '' || body.url === '') {
+      return response.status(400)
+        .send({ error: 'author or url missing' })
+    }
+    const user = await User.findById(body.userId)
+
     const blog = new Blog ({
       title: body.title,
       author: body.author,
       url: body.url,
-      likes: body.likes === undefined || body.likes ==='' ? 0 : body.likes
+      likes: body.likes === undefined ? 0 : body.likes,
+      user: user._id
     })
 
     const savedBlog = await blog.save()
     console.log(savedBlog)
+
+    user.blogs = user.blogs.concat(savedBlog._id)
+    await user.save()
+
     response.status(201).json(savedBlog)
 
   } catch (err) {
@@ -48,11 +56,13 @@ blogsRouter.put('/:id', async (req, resp) => {
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes
+    likes: body.likes,
+    user: body.user
   }
 
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true } )
+    const updatedBlog = await Blog
+      .findByIdAndUpdate(req.params.id, blog, { new: true } )
     resp.json(updatedBlog)
   }  catch (err) {
     console.log(err.message)
