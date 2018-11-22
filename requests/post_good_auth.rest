@@ -1,0 +1,12 @@
+POST   http://localhost:3003/api/blogs HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlciIsImlkIjoiNWJlZjI4OWY5OTkwYTgxMGYwNGVjZGZhIiwiaWF0IjoxNTQyODkxMDk5fQ.4d09I7IqZ9wsJvlb8GZa7pUA6r8KOB0GtjGjUfM91CM
+
+{
+    "title" : "test token auth",
+    "author" : "jus",
+    "url" : "www/***/***",
+    "likes" : 3
+}
+
+//sessiokohtainen token tarvitaan tietysti
