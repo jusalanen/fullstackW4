@@ -1,0 +1,10 @@
+POST   http://localhost:3003/api/blogs HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciO
+
+{
+    "title" : "test token auth",
+    "author" : "jus",
+    "url" : "www/***/***",
+    "likes" : 3
+}
